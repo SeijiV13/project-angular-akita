@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "project-angular-akita"
+  "defaultProject": "project-angular-akita",
+  "cli": {
+    "defaultCollection": "akita-schematics"
+  }
 }

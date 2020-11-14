@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "name": "this is a test",
+      "description": "hey im a new todo",
+      "id": 1
+    },
+    {
+      "name": "this is a test",
+      "description": "hey im a new todo",
+      "id": 2
+    },
+    {
+      "name": "this is a test",
+      "description": "hey im a new todo",
+      "id": 3
+    }
+  ]
+}
