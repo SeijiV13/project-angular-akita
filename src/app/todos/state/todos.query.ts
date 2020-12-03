@@ -15,5 +15,4 @@ export class TodosQuery extends QueryEntity<TodosState, Todo> {
   selectAreTodosLoaded$ = this.select(state => {
     return state.areTodosLoaded;
   });
-
 }

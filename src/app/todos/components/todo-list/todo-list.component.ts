@@ -1,10 +1,12 @@
+import { TodosStore } from './../../state/todos.store';
 import { TodosService } from './../../state/todos.service';
 import { Todo } from './../../state/todo.model';
 import { TodosQuery } from './../../state/todos.query';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, tap } from 'rxjs/operators';
 import { ThrowStmt } from '@angular/compiler';
+import { ID } from '@datorama/akita';
 
 @Component({
   selector: 'app-todo-list',
@@ -14,7 +16,7 @@ import { ThrowStmt } from '@angular/compiler';
 export class TodoListComponent implements OnInit {
   todos$: Observable<Todo[]> = this.todosQuery.selectAll();
 
-  constructor(private todosQuery: TodosQuery, private todosService: TodosService) { }
+  constructor(private todosQuery: TodosQuery, private todosService: TodosService, private store: TodosStore) { }
 
   ngOnInit(): void {
     this.todosQuery.selectAreTodosLoaded$.pipe(
@@ -27,6 +29,16 @@ export class TodoListComponent implements OnInit {
     ).subscribe();
   }
 
+  selectTodo(id: ID): void {
+    this.store.setActive(id);
+    const test$ = this.todosQuery.selectActive();
+    // tslint:disable-next-line: deprecation
+    const test = test$.subscribe((data: Todo[]) => {
+      console.log(data);
+    }, () => {}, () => {});
+    test.unsubscribe();
+  }
+
   createTodo(): void {
     const todo = {
       name: 'this is a test',
@@ -35,8 +47,14 @@ export class TodoListComponent implements OnInit {
     this.todosService.createTodo(todo).subscribe();
   }
 
-  deleteTodo(id: string): void {
+  deleteTodo(id: ID): void {
    this.todosService.deleteTodo(id).subscribe();
+  }
+
+  countUsers(): void  {
+    this.todosQuery.selectCount().subscribe(data => {
+      console.log(data)
+    });
   }
 
 }

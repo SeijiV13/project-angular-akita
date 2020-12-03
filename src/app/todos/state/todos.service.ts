@@ -30,7 +30,7 @@ export class TodosService {
     );
   }
 
-  deleteTodo(id: string): Observable<Todo> {
+  deleteTodo(id: ID): Observable<Todo> {
     return this.http.delete<Todo>(`${environment.url}/todos/${id}`).pipe(
       tap(value => {
         this.todosStore.remove(id);

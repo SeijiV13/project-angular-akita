@@ -2,8 +2,11 @@
   <li *ngFor="let todo of todos$ | async"> {{todo.name}} | {{todo.description}}
 
     <button (click)="deleteTodo(todo.id)">Delete!</button>
+    <button (click)="selectTodo(todo.id)">Select</button>
   </li>
 </ol>
 
 
 <button (click)="createTodo()">Create!</button>
+
+<button (click)="countUsers()">Count Users!</button>
